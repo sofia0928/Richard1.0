@@ -1,45 +1,38 @@
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-8 offset-2">
-            <div class="card">
-                <div class="card-body text-center">
-                    <span class="titulo">LISTADO DE PRODUCTOS</span>
-                    <button class="btn btn-success float-end" routerLink="/crear-producto">CREAR</button>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col">Producto</th>
-                                <th scope="col">Categoria</th>
-                                <th scope="col">Ubicacion</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col"></th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td><i class="fa-solid fa-pen-to-square"></i>
-                                    <i class="fa-solid fa-trash text-danger"></i></td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td><i class="fa-solid fa-pen-to-square"></i>
-                                    <i class="fa-solid fa-trash text-danger"></i></td>
-                              </tr>
-                              
-                            </tbody>
-                          </table>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="row">
+      <div class="col-lg-8 offset-2">
+          <div class="card">
+              <div class="card-body text-center">
+                  <span class="titulo">LISTADO DE PRODUCTOS</span>
+                  <button class="btn btn-success float-end" routerLink="/crear-producto">CREAR</button>
+                  <div class="table-responsive">
+                      <table *ngIf="listProductos.length > 0" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th scope="col">Producto</th>
+                              <th scope="col">Categoria</th>
+                              <th scope="col">Ubicacion</th>
+                              <th scope="col">Precio</th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let producto of listProductos">
+                              <td>{{ producto.nombre }}</td>
+                              <td>{{ producto.categoria }}</td>
+                              <td>{{ producto.ubicacion }}</td>
+                              <td>{{ producto.precio | currency: 'COP' }}</td>
+                              <td>
+                                <i [routerLink]="['/editar-producto', producto._id]" class="fa-solid fa-pen-to-square"></i>
+                                <i (click)="eliminarProducto(producto._id)" class="fa-solid fa-trash text-danger"></i>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <h5 *ngIf="listProductos.length == 0" class="text-center mt-5">No hay datos para mostrar</h5>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
